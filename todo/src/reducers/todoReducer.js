@@ -14,7 +14,7 @@ export const initialTodoState = [
   }
 ];
 
-  export const todoRdeucder = (state, action) => {
+  export const todoReducer = (state, action) => {
     switch (action.type) {
         default:
             return state;

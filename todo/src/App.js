@@ -1,26 +1,71 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ReactDOM from "react-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import TodoForm from './components/TodoForm';
+import TodoList from "./components/TodoList";
+
+import "./components/Todo.css";
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      tasks
+    };
+  }
+
+  toggleCompleted = taskId => {
+    console.log("bk: index.js: App: toggleCompleted: taskId: ", taskId);
+    this.setState({
+      tasks: this.state.tasks.map(task => {
+        if (task.id === taskId) {
+          return {
+            ...task,
+            completed: !task.completed
+          };
+        }
+        return task;
+      })
+    });
+  };
+
+  // addItem = taskName => {
+  //   this.setState({
+  //     tasks: [
+  //       ...this.state.tasks,
+  //       {
+  //         name: taskName,
+  //         id:Date.now(),
+  //         completed: false
+  //       }
+  //     ]
+  //   });
+  // };
+
+  clearCompleted = () => {
+    console.log("bk: index.js: App: clearCompleted");
+    this.setState({
+      tasks: this.state.tasks.filter(task => {
+        return !task.completed;
+      })
+    });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <div className="header">
+          <h1> To Do List</h1>
+          <TodoForm addItem={this.addItem} />
+        </div>
+        <TodoList
+          tasks={this.state.tasks}
+          toggleCompleted={this.toggleCompleted}
+          clearCompleted={this.clearCompleted}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
